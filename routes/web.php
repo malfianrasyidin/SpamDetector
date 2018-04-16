@@ -1,4 +1,6 @@
 <?php
 
-Route::get('/', 'HomeController@index');
-Route::get('/hasil', 'HomeController@show');
+Route::get('/', 'HomeController@show');
+Route::put('/hasil', 'HomeController@process');
+
+?>

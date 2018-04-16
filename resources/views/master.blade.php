@@ -55,6 +55,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 	<script src="{{asset('js/jquery.validate.min.js')}}"></script> 
 	<script src="{{asset('js/chart.min.js')}}"></script> 
 	<script src="{{asset('js/front.js')}}"></script>
+	@yield('script')
 </body>
 
 </html>

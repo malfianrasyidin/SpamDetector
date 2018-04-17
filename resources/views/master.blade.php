@@ -14,7 +14,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>Spam Detector</title>
-	<link rel="shortcut icon" href="img/favicon.ico">
+	{{-- <link rel="shortcut icon" href="img/favicon.ico"> --}}
 	<!-- global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -34,9 +34,9 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 			<div class="container-fluid ">
 				<div class="navbar-holder d-flex align-items-center justify-content-between">
 					<div class="navbar-header">
-						<a href="{{ url()->current() }}" class="navbar-brand">
-							<div class="brand-text brand-big hidden-lg-down"><img src="img/logo-white.png" alt="Logo" class="img-fluid"></div>
-							<div class="brand-text brand-small"><img src="img/logo-icon.png" alt="Logo" class="img-fluid"></div>
+						<a href="{{ url('/') }}" class="navbar-brand">
+							{{-- <div class="brand-text brand-big hidden-lg-down"><img src="img/logo-white.png" alt="Logo" class="img-fluid"></div> --}}
+							{{-- <div class="brand-text brand-small"><img src="img/logo-icon.png" alt="Logo" class="img-fluid"></div> --}}
 						</a>
 					</div>
 				</div>

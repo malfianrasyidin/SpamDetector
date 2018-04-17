@@ -36,20 +36,20 @@
 									<div class="row" id="report4">
 										<div class="col-md-4">
 											<div class="card text-center social-bottom sb-fb">
-												<i class="fa fa-facebook"></i>
-												<p>Algoritma</p>
+												{{-- <i class="fa fa-code"></i> --}}
+												<p>Algoritma Boyer-Moore</p>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="card text-center social-bottom sb-tw">
-												<i class="fa fa-twitter"></i>
-												<p>Algoritma</p>
+												{{-- <i class="fa fa-twitter"></i> --}}
+												<p>Algoritma KMP</p>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="card text-center social-bottom sb-gp">
-												<i class="fa fa-google-plus"></i>
-												<p>Algoritma</p>
+												{{-- <i class="fa fa-google-plus"></i> --}}
+												<p>Algoritma Regex</p>
 											</div>
 										</div> 
 									</div>

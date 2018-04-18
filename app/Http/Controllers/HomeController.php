@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Response;
 use Illuminate\Http\Request;
 use \RecursiveArrayIterator;
 use \RecursiveIteratorIterator;
@@ -46,6 +47,7 @@ class HomeController extends Controller
                 $process->run();
                 $result = $process->getOutput();
                 $result_data = json_decode($result, true);
+                // dd($result);
 
                 break;
             case 2: // Algoritma KMP
@@ -56,6 +58,23 @@ class HomeController extends Controller
                 break;
         }
 
+        // Contoh array yang harus didapatkan oleh PHP dari Python
+        $array = array(
+            '0'=>array(
+                'username'=>"@malfian_rasyid", 
+                'message'=>"Bukan SPAM sih yang ini", 
+                'created_at'=>date('Y-m-d H:i:s'),
+                'spam_flag'=>0, 
+            ),
+            '1'=>array(
+                'username'=>"@malfianrasyidin", 
+                'message'=>"Ini seharusnya sih SPAM", 
+                'created_at'=>date('Y-m-d H:i:s'),
+                'spam_flag'=>1, 
+            ),
+        );
+        $result_data = json_decode(json_encode($array),true);
+        
         return view('result', ['data'=>$result_data]);
     }
 }

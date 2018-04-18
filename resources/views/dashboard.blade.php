@@ -59,21 +59,21 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
-												<label for="consumer_key">Consumer Key *</label>
+												<label for="consumer_key">Consumer Key</label>
 												<input type="text" class="form-control" name="consumer_key" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('consumer_key')}}">
 											</div>
 											<div class="form-group">
-												<label for="consumer_secret">Consumer Secret *</label>
+												<label for="consumer_secret">Consumer Secret</label>
 												<input type="consumer_secret" class="form-control" name="consumer_secret" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('consumer_secret')}}">
 											</div>
 										</div>
 										<div class="col-md-6"> 
 											<div class="form-group">
-												<label for="access_token">Access Token *</label>
+												<label for="access_token">Access Token</label>
 												<input type="text" class="form-control" name="access_token" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('access_token')}}">
 											</div> 
 											<div class="form-group">
-												<label for="access_secret">Access Secret *</label>
+												<label for="access_secret">Access Secret</label>
 												<input type="access_secret" class="form-control" name="access_secret" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('access_secret')}}" required>
 											</div>  
 										</div>
@@ -86,11 +86,11 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="spam_keyword">Kata Kunci *</label>
-												<input type="text" class="form-control" name="spam_keyword" placeholder="Masukkan kata kunci spam" required>
+												<input type="text" class="form-control" name="spam_keyword" placeholder="Masukkan kata kunci spam" value="{{old('keyword')}}" required>
 											</div>
 											<div class="form-group">
 												<label for="start_datetime">Tanggal Mulai Pencarian *</label>
-												<input class="form-control" type="datetime-local" value="2018-04-20T13:45:00" name="start_datetime" required>
+												<input class="form-control" type="datetime-local" value="2018-04-20T13:45:00" name="start_datetime" value="{{old('start_datetime')}}" required>
 											</div> 
 										</div>
 										<div class="col-md-6"> 
@@ -105,11 +105,11 @@
 											</div>
 											<div class="form-group">
 												<label for="end_datetime">Tanggal Akhir Pencarian *</label>
-												<input class="form-control" type="datetime-local" value="2018-04-20T13:45:00" name="end_datetime" required>
+												<input class="form-control" type="datetime-local" value="2018-04-20T13:45:00" name="end_datetime" value="{{old('end_datetime')}}" required>
 											</div> 
 										</div>
 									</div>
-									{{method_field("put")}}
+									{{(method_field('put'))}}
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<button type="submit" class="btn btn-general btn-blue" onclick="document.getElementById('formId').submit();">Cari</button>
 								</div>

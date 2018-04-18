@@ -47,7 +47,7 @@ class HomeController extends Controller
                 $process->run();
                 $result = $process->getOutput();
                 $result_data = json_decode($result, true);
-                // dd($result);
+                dd($result);
 
                 break;
             case 2: // Algoritma KMP

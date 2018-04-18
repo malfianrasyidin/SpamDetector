@@ -74,7 +74,7 @@
 											</div> 
 											<div class="form-group">
 												<label for="access_secret">Access Secret</label>
-												<input type="access_secret" class="form-control" name="access_secret" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('access_secret')}}" required>
+												<input type="access_secret" class="form-control" name="access_secret" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('access_secret')}}">
 											</div>  
 										</div>
 									</div>

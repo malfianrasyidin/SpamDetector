@@ -17,10 +17,10 @@ def computeFail(pattern):
 		elif (j > 0):
 			j = fail[j-1]
 		else:
-			fail[i] = 0;
+			fail[i] = 0
 			i=i+1
 
-	return fail;
+	return fail
 
 
 #Fungsi Pencocokan Pattern pendekatan KMP dengan masukan pattern yang akan dicari (dalam bentuk string) dan suatu teks tempat pattern akan dicari, mengembalikan True atau False
@@ -78,8 +78,8 @@ def matchBM(text,pattern):
 		if (j == 0):
 			found = True
 		else:
-			i=i-1;
-			j=j-1;
+			i=i-1
+			j=j-1
 	else:
 		last_occur = last[ord(pattern[i])-97]
 		i = i + len_pattern - min(j,1+last_occur)
@@ -93,8 +93,8 @@ def matchBM(text,pattern):
 			if (j == 0):
 				found = True
 			else:
-				i=i-1;
-				j=j-1;
+				i=i-1
+				j=j-1
 		else:
 			last_occur = last[ord(text[i])-97]
 			i = i + len_pattern - min(j,1+last_occur)
@@ -112,11 +112,11 @@ def matchRE(text,pattern):
 		return False
 
 #Contoh Penggunaan [DELETE THIS LATER]
-tes = matchKMP("Bangsat kamu manusia yang tidak tahu diri", "Bangsa")
-print(tes)
+# tes = matchKMP("Bangsat kamu manusia yang tidak tahu diri", "Bangsatt")
+# print(tes)
 
-tes2 = matchBM("Bangsat kamu manusia yang tidak tahu diri", "n")
-print(tes2)
+# tes2 = matchBM("Bangsat kamu manusia yang tidak tahu diri", "nas")
+# print(tes2)
 
-tes3 = matchRE("Bangsat kamu manusia yang tidak tahu diri", "[Bb]angsa")
-print(tes3)
+# tes3 = matchRE("Bangsat kamu manusia yang tidak tahu diri", "Bangsa")
+# print(tes3)

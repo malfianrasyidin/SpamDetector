@@ -46,8 +46,9 @@ class HomeController extends Controller
                 $process = new Process("python3 hello.py '$data'");
                 $process->run();
                 $result = $process->getOutput();
-                $result_data = json_decode($result, true);
-                dd($result);
+                // $result_data = json_decode($result, true);
+                $result_data = json_decode(json_encode($result),true);
+                dd($result_data);
 
                 break;
             case 2: // Algoritma KMP
@@ -73,7 +74,7 @@ class HomeController extends Controller
                 'spam_flag'=>1, 
             ),
         );
-        $result_data = json_decode(json_encode($array),true);
+        // $result_data = json_decode(json_encode($array),true);
         
         return view('result', ['data'=>$result_data]);
     }

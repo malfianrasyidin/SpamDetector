@@ -37,27 +37,16 @@ class HomeController extends Controller
 
         // Membuat JSON
         $array = array('consumer_key'=>$consumer_key, 'consumer_secret'=>$consumer_secret, 'access_token'=>$access_token, 'access_secret'=>$access_secret, 'spam_keyword' => $request->spam_keyword, 'algorithm' => $request->algorithm, 'start_datetime' => $request->start_datetime, 'end_datetime' => $request->end_datetime,
+        $request->algorithm
         );
         $data = json_encode($array);
 
-        // Memilih jenis algoritma
-        switch ($request->algorithm) {
-            case 1: // Algoritma Boyer-Moore
-                $process = new Process("python3 hello.py '$data'");
-                $process->run();
-                $result = $process->getOutput();
-                // $result_data = json_decode($result, true);
-                $result_data = json_decode(json_encode($result),true);
-                dd($result_data);
-
-                break;
-            case 2: // Algoritma KMP
-                
-                break;
-            case 3: // Algoritma Regex
-                
-                break;
-        }
+        // proses
+        $process = new Process("python3 hello.py '$data'");
+        $process->run();
+        $result = $process->getOutput();
+        $result_data = json_decode($result, true);
+        // dd($result);
 
         // Contoh array yang harus didapatkan oleh PHP dari Python
         $array = array(
@@ -74,7 +63,7 @@ class HomeController extends Controller
                 'spam_flag'=>1, 
             ),
         );
-        // $result_data = json_decode(json_encode($array),true);
+
         
         return view('result', ['data'=>$result_data]);
     }

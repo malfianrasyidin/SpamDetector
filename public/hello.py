@@ -22,15 +22,6 @@ def CompareTime(time1, time2):
 def TimeToString(t):
     return time.strftime("%Y-%m-%d %H:%M:%S", t)
 
-consumer_key = '5p9RJNvDY6g7X7iqQvzuGVcHv'
-consumer_secret = 'FWn4OZIbtJjs6qEErvX9R0fYX0FN84XP72eMjO2zdJUODBxtxK'
-access_token = '197745421-LgYMwS7PtHSSxLFATSlceRsdpMaCA9qf1dtz5t9v'
-access_secret = 'huq48ZjymfCQZcudTyq0zGeHehloz8jgmHFWhg4lQcMiv'
-
-auth = OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_secret)
-api = tweepy.API(auth)
-
 data = {
     'spam_keyword':'bacot',
     'algorithm':1,
@@ -38,16 +29,13 @@ data = {
     'end_datetime' : TimeToString(time.gmtime())
 }
 
-# data = json.loads(sys.argv[1])
-tweet_list = list(tweepy.Cursor(api.home_timeline).items())
-
-inrange_tweet = []
-start_datetime = ParseTimeFromForm(data['start_datetime'])
-end_datetime = ParseTimeFromForm(data['end_datetime'])
-for tweet in tweet_list:
-    tweet_time = ParseTimeFromStatus(tweet['created_at'])
-    if(CompareTime(start_datetime, tweet_time) <= 0 and CompareTime(end_datetime, tweet_time >= 0)):
-        inrange_tweet.append(tweet)
+# inrange_tweet = []
+# start_datetime = ParseTimeFromForm(data['start_datetime'])
+# end_datetime = ParseTimeFromForm(data['end_datetime'])
+# for tweet in tweet_list:
+#     tweet_time = ParseTimeFromStatus(tweet['created_at'])
+#     if(CompareTime(start_datetime, tweet_time) <= 0 and CompareTime(end_datetime, tweet_time >= 0)):
+#         inrange_tweet.append(tweet)
 
 # sebagai contoh
 result = [
@@ -65,49 +53,20 @@ result = [
     }
 ]
 
-for tweet in inrange_tweet:
-    temp = {}
-    temp['username'] = tweet['user']['name']
-    temp['message'] = tweet['text']
-    temp['created_at'] = TimeToString(ParseTimeFromStatus(tweet['created_at']))
-    if(data['algorithm'] == 1):
-        temp['spam_flag'] == int(matchBM(temp['message'], data['spam_keyword']))
-    elif(data['algorithm'] == 2):
-        temp['spam_flag'] == int(matchKMP(temp['message'], data['spam_keyword']))
-    else:
-        temp['spam_flag'] == int(matchRE(temp['message'], data['spam_keyword']))
-    result.append(temp)
+# for tweet in inrange_tweet:
+#     temp = {}
+#     temp['username'] = tweet['user']['name']
+#     temp['message'] = tweet['text']
+#     temp['created_at'] = TimeToString(ParseTimeFromStatus(tweet['created_at']))
+#     if(data['algorithm'] == 1):
+#         temp['spam_flag'] == int(matchBM(temp['message'], data['spam_keyword']))
+#     elif(data['algorithm'] == 2):
+#         temp['spam_flag'] == int(matchKMP(temp['message'], data['spam_keyword']))
+#     else:
+#         temp['spam_flag'] == int(matchRE(temp['message'], data['spam_keyword']))
+#     result.append(temp)
+
 print(json.dumps(result))
-
-
-print(data['start_datetime'])
-
-# import sys
-# import json
-# import tweepy
-# from tweepy import OAuthHandler
-
-# # Membaca data yang dikirim dari PHP
-# # data = (json.loads(sys.argv[1]))
-
-# consumer_key = '5p9RJNvDY6g7X7iqQvzuGVcHv'
-# consumer_secret = 'FWn4OZIbtJjs6qEErvX9R0fYX0FN84XP72eMjO2zdJUODBxtxK'
-# access_token = '197745421-LgYMwS7PtHSSxLFATSlceRsdpMaCA9qf1dtz5t9v'
-# access_secret = 'huq48ZjymfCQZcudTyq0zGeHehloz8jgmHFWhg4lQcMiv'
-
-# api = Twitter(
-#     auth=OAuth(
-#         access_token,
-#         access_secret,
-#         consumer_key,
-#         consumer_secret
-#     )
-# )
-# x = api.statuses.home_timeline()
-# print([123123,123,123,123])
-# print('testes2123123')
-# print(x[0]['text'])
-
 
 # Membuat data yang akan dikirim ke PHP
 # result = {'status': 'Yes!'}

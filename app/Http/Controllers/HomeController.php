@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Response;
+use Twitter;
 use Illuminate\Http\Request;
 use \RecursiveArrayIterator;
 use \RecursiveIteratorIterator;
@@ -15,12 +16,6 @@ class HomeController extends Controller
     }
 
     public function process(Request $request){
-        // Data default
-        $consumer_key = '5p9RJNvDY6g7X7iqQvzuGVcHv';
-        $consumer_secret = 'FWn4OZIbtJjs6qEErvX9R0fYX0FN84XP72eMjO2zdJUODBxtxK';
-        $access_token = '197745421-LgYMwS7PtHSSxLFATSlceRsdpMaCA9qf1dtz5t9v';
-        $access_secret = 'huq48ZjymfCQZcudTyq0zGeHehloz8jgmHFWhg4lQcMiv';
-
         // Melakukan Overwrite jika field profil diisi
         if ($request->consumer_key != NULL){
             if ($request->consumer_secret != NULL){
@@ -36,35 +31,23 @@ class HomeController extends Controller
         }
 
         // Membuat JSON
-        $array = array('consumer_key'=>$consumer_key, 'consumer_secret'=>$consumer_secret, 'access_token'=>$access_token, 'access_secret'=>$access_secret, 'spam_keyword' => $request->spam_keyword, 'algorithm' => $request->algorithm, 'start_datetime' => $request->start_datetime, 'end_datetime' => $request->end_datetime,
-        $request->algorithm
+        $array = array( 
+            'algorithm' => $request->algorithm, 
+            'spam_keyword'=>$request->spam_keyword,
         );
-        $data = json_encode($array);
-
-        // proses
-        $process = new Process("python3 hello.py '$data'");
+        $data = (string)json_encode($array, true);
+        $data_twitter = Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
+        // dd($data_twitter);
+        // Proses
+        $process = new Process("python3 hello.py '$data' '$data_twitter'");
+        // $process->setInput($data_twitter);
+        // dd($process);
         $process->run();
-        $result = $process->getOutput();
+        $result = $process->getErrorOutput();
         $result_data = json_decode($result, true);
+        
         dd($result);
 
-        // Contoh array yang harus didapatkan oleh PHP dari Python
-        $array = array(
-            '0'=>array(
-                'username'=>"@malfian_rasyid", 
-                'message'=>"Bukan SPAM sih yang ini", 
-                'created_at'=>date('Y-m-d H:i:s'),
-                'spam_flag'=>0, 
-            ),
-            '1'=>array(
-                'username'=>"@malfianrasyidin", 
-                'message'=>"Ini seharusnya sih SPAM", 
-                'created_at'=>date('Y-m-d H:i:s'),
-                'spam_flag'=>1, 
-            ),
-        );
-        // $result_data = json_decode(json_encode($result),true);
-        
         return view('result', ['data'=>$result_data]);
     }
 }

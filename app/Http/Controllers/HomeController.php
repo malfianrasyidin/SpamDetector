@@ -1,12 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
-use Response;
 use Storage;
 use Twitter;
 use Illuminate\Http\Request;
-use \RecursiveArrayIterator;
-use \RecursiveIteratorIterator;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
@@ -31,7 +28,7 @@ class HomeController extends Controller
             }
         }
 
-        // Menulis JSON
+        // Menulis informasi data ke dalam berkas JSON
         $data = array( 
             'algorithm' => $request->algorithm, 
             'spam_keyword'=>$request->spam_keyword,
@@ -39,17 +36,22 @@ class HomeController extends Controller
         $path = storage_path() . "/json/data.json";
         file_put_contents($path, json_encode($data));
 
+        // Menulis data dari Twitter ke dalam berkas JSON
         $data_twitter = Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
         $path_twitter = storage_path() . "/json/data_twitter.json";
         file_put_contents($path_twitter, $data_twitter);
 
-        // Baca
-        $json = json_decode(file_get_contents($path), true); 
+        // Memproses algoritma
+        try {
+            $process = new Process("python3 hello.py");
+            $process->mustRun();
+        } catch (ProcessFailedException $exception) {
+            echo $exception->getMessage();
+        }
 
-        // Proses
-        $process = new Process("python3 hello.py");
-        $process->run();
-        $result_data = json_decode($result, true);
+        // Membaca hasil
+        $path_result = storage_path() . "/json/result.json";
+        $result_data = json_decode(file_get_contents($path_result), true);
         
         return view('result', ['data'=>$result_data]);
     }

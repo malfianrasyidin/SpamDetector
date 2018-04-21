@@ -22,17 +22,15 @@ def CompareTime(time1, time2):
 def TimeToString(t):
     return time.strftime("%Y-%m-%d %H:%M:%S", t)
 
-data = json.loads(sys.argv[1])
-data_twitter = json.loads(sys.argv[2])
-
-with open('../storage/data.json') as f:
+with open('../storage/json/data.json') as f:
     data = json.load(f)
     f.close()
 
-with open('../storage/data_twitter.json') as f:
+with open('../storage/json/data_twitter.json') as f:
     data_twitter = json.load(f)
     f.close()
 
+# print(data_twitter[0]['text'])
 
 # print(json.dumps(data))
 # print(sys.argv[2])
@@ -67,11 +65,11 @@ for tweet in data_twitter:
     temp['message'] = tweet['text']
     temp['created_at'] = TimeToString(ParseTimeFromStatus(tweet['created_at']))
     if(data['algorithm'] == 1):
-        temp['spam_flag'] == int(matchBM(temp['message'], data['spam_keyword']))
+        temp['spam_flag'] = int(matchBM(temp['message'], data['spam_keyword']))
     elif(data['algorithm'] == 2):
-        temp['spam_flag'] == int(matchKMP(temp['message'], data['spam_keyword']))
+        temp['spam_flag'] = int(matchKMP(temp['message'], data['spam_keyword']))
     else:
-        temp['spam_flag'] == int(matchRE(temp['message'], data['spam_keyword']))
+        temp['spam_flag'] = int(matchRE(temp['message'], data['spam_keyword']))
     result.append(temp)
 
 # print(sys.argv[1])
@@ -79,7 +77,9 @@ for tweet in data_twitter:
 
 # Membuat data yang akan dikirim ke PHP
 # result = {'status': 'Yes!'}
-# print (json.dump(result))
+print (json.dumps(result))
 
-with open('../storage/result.json', 'w') as outfile:
+# print(result)
+
+with open('../storage/json/result.json', 'w') as outfile:
     json.dump(result, outfile)

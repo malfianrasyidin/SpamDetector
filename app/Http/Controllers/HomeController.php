@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Response;
+use Storage;
 use Twitter;
 use Illuminate\Http\Request;
 use \RecursiveArrayIterator;
@@ -30,20 +31,29 @@ class HomeController extends Controller
             }
         }
 
-        // Membuat JSON
-        $array = array( 
+        // Menulis JSON
+        $data = array( 
             'algorithm' => $request->algorithm, 
             'spam_keyword'=>$request->spam_keyword,
         );
-        $data = (string)json_encode($array, true);
+        $path = storage_path() . "/json/data.json";
+        file_put_contents($path, json_encode($data));
+
         $data_twitter = Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
-        // dd($data_twitter);
+        $path_twitter = storage_path() . "/json/data_twitter.json";
+        file_put_contents($path_twitter, $data_twitter);
+
+        // Baca
+        $json = json_decode(file_get_contents($path), true); 
+        // dd($json);
+
         // Proses
-        $process = new Process("python3 hello.py '$data' '$data_twitter'");
+        $process = new Process("python3 hello.py");
         // $process->setInput($data_twitter);
         // dd($process);
         $process->run();
-        $result = $process->getErrorOutput();
+        // $result = $process->getErrorOutput();
+        $result = $process->getOutput();
         $result_data = json_decode($result, true);
         
         dd($result);

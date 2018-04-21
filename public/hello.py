@@ -8,17 +8,6 @@ from tweepy import OAuthHandler
 def ParseTimeFromStatus(timestr):
     return time.strptime(timestr, "%a %b %d %H:%M:%S +0000 %Y")
 
-def ParseTimeFromForm(timestr):
-    return time.strptime(timestr, "%Y-%m-%dT%H:%M:%S")
-
-def CompareTime(time1, time2):
-    if(time.mktime(time1) > time.mktime(time2)):
-        return 1
-    elif(time.mktime(time1) < time.mktime(time2)):
-        return -1
-    else:
-        return 0
-
 def TimeToString(t):
     return time.strftime("%Y-%m-%d %H:%M:%S", t)
 
@@ -42,26 +31,11 @@ with open('../storage/json/data_twitter.json') as f:
 #     tweet_time = ParseTimeFromStatus(tweet['created_at'])
 #     if(CompareTime(start_datetime, tweet_time) <= 0 and CompareTime(end_datetime, tweet_time >= 0)):
 #         inrange_tweet.append(tweet)
-
-# sebagai contoh
-result = [
-    {
-        'username' : "@malfian_rasyid",
-        'message':"Bukan SPAM sih yang ini", 
-        'created_at':TimeToString(time.gmtime()),
-        'spam_flag':0, 
-    },
-    {
-        'username' : "@agung",
-        'message':"Ini Spam", 
-        'created_at':TimeToString(time.gmtime()),
-        'spam_flag':1,  
-    }
-]
+result = []
 
 for tweet in data_twitter:
     temp = {}
-    temp['username'] = tweet['user']['name']
+    temp['username'] = '@'+tweet['user']['screen_name']
     temp['message'] = tweet['text']
     temp['created_at'] = TimeToString(ParseTimeFromStatus(tweet['created_at']))
     if(data['algorithm'] == 1):

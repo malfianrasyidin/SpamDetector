@@ -45,12 +45,10 @@ class HomeController extends Controller
 
         // Baca
         $json = json_decode(file_get_contents($path), true); 
-        dd($json);
 
         // Proses
-        $process = new Process("python3 hello.py $data $data_twitter");
+        $process = new Process("python3 hello.py");
         $process->run();
-        $result = $process->getOutput();
         $result_data = json_decode($result, true);
         
         return view('result', ['data'=>$result_data]);

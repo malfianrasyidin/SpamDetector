@@ -46,7 +46,7 @@ class HomeController extends Controller
         $process->run();
         $result = $process->getOutput();
         $result_data = json_decode($result, true);
-        // dd($result);
+        dd($result);
 
         // Contoh array yang harus didapatkan oleh PHP dari Python
         $array = array(

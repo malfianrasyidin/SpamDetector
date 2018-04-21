@@ -36,31 +36,13 @@ class HomeController extends Controller
             'spam_keyword'=>$request->spam_keyword,
         );
         $data = json_encode($array);
-        // $data_twitter = Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
-        // dd($data_twitter);
-        // proses
-        $process = new Process("python3 hello.py $data");
+        $data_twitter = Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
+
+        // Proses
+        $process = new Process("python3 hello.py $data $data_twitter");
         $process->run();
         $result = $process->getOutput();
         $result_data = json_decode($result, true);
-        // dd($result);
-
-        // Contoh array yang harus didapatkan oleh PHP dari Python
-        // $array = array(
-        //     '0'=>array(
-        //         'username'=>"@malfian_rasyid", 
-        //         'message'=>"Bukan SPAM sih yang ini", 
-        //         'created_at'=>date('Y-m-d H:i:s'),
-        //         'spam_flag'=>0, 
-        //     ),
-        //     '1'=>array(
-        //         'username'=>"@malfianrasyidin", 
-        //         'message'=>"Ini seharusnya sih SPAM", 
-        //         'created_at'=>date('Y-m-d H:i:s'),
-        //         'spam_flag'=>1, 
-        //     ),
-        // );
-
         
         return view('result', ['data'=>$result_data]);
     }

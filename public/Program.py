@@ -25,11 +25,17 @@ for tweet in data_twitter:
     temp['message'] = tweet['text']
     temp['created_at'] = TimeToString(ParseTimeFromStatus(tweet['created_at']))
     if(data['algorithm'] == 1):
-        temp['spam_flag'] = int(matchBM(temp['message'], data['spam_keyword']))
+        flag, new_text = matchBM(temp['message'], data['spam_keyword'])
+        temp['spam_flag'] = int(flag)
+        temp['message'] = new_text
     elif(data['algorithm'] == 2):
-        temp['spam_flag'] = int(matchKMP(temp['message'], data['spam_keyword']))
+        flag, new_text = matchBM(temp['message'], data['spam_keyword'])
+        temp['spam_flag'] = int(flag)
+        temp['message'] = new_text
     else:
-        temp['spam_flag'] = int(matchRE(temp['message'], data['spam_keyword']))
+        flag, new_text = matchBM(temp['message'], data['spam_keyword'])
+        temp['spam_flag'] = int(flag)
+        temp['message'] = new_text
     result.append(temp)
 
 with open('../storage/json/result.json', 'w') as outfile:

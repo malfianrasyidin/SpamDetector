@@ -100,7 +100,7 @@ def matchBM(text,pattern):
 			if (j == 0):
 				found = True
 				k = len_pattern + i
-				text1 = text[:k] + '<i></b>' + text[k:]
+				text1 = text[:k] + '</i></b>' + text[k:]
 				ntext = text1[:i] + '<b><i>' + text1[i:]
 			else:
 				i=i-1
@@ -115,11 +115,11 @@ def matchBM(text,pattern):
 #Fungsi Pencocokan Pattern pendekaran regex dengan masukan pattern yang dicari (dalam bentuk ekspresi Regex) dan suatu teks tempat pattern akan dicari. Mengembalikan True atau False
 def matchRE(text,pattern):
 	found = re.search(pattern, text, re.IGNORECASE)
-	i = re.search(pattern, text, re.IGNORECASE).start()
 	ntext = text
 	len_pattern = len(pattern)
 
 	if found:
+		i = found.start()
 		text1 = text[:i+len_pattern] + '</i></b>' + text[i+len_pattern:]
 		ntext = text1[:i] + '<b><i>' + text1[i:]
 		return True, ntext
@@ -127,7 +127,7 @@ def matchRE(text,pattern):
 		return False, ntext
 
 #Contoh Penggunaan [DELETE THIS LATER"""]
-"""text = "Bangsat gsat kamu manusia yang tidak tahu diri"
+text = "Bangsat gsat kamu manusia yang tidak tahu diri"
 tes,KMPtext = matchKMP(text, "Bangsa")
 print(tes)
 print(KMPtext)
@@ -136,8 +136,8 @@ tes2, BMtext = matchBM("Bangsat kamu manusia yang tidak tahu diri", "manusi")
 print(tes2)
 print(BMtext)
 
-tes3, REtext = matchRE("Bangsat kamu manusia yang tidak tahu diri", "GSaT")
+tes3, REtext = matchRE("Bangsat kamu manusia yang tidak tahu diri", "GSaaT")
 print(tes3)
 print(REtext)
-"""
+
 #print(computeFail("abababcba"))

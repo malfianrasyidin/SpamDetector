@@ -7,9 +7,15 @@
 					<div class="cardheader"></div>
 					<div class="info">
 						<div class="title">
-							<a target="_blank" href="#">Nama Kelompok</a>
+							<a target="_blank" href="#">R P M</a>
 						</div>
-						<div class="desc">Tugas Besar III <br> IF2121 - Strategi Algoritma</div> 
+						<div class="desc">Tugas Besar III <br> IF2121 - Strategi Algoritma</div>
+						<div class="desc2">
+							Pengembang: <br>
+							13516005 RIZKI ALIF SALMAN ALFARISY <br>
+							13516089 PRIAGUNG SATYAGAMA	<br>
+							13516104 MUHAMMAD ALFIAN RASYIDIN <br>
+						</div>
 						<hr>
 					</div>
 				</div>
@@ -32,30 +38,27 @@
 						<form method="POST" action="{{url('/hasil')}}" id="formId">
 							<div class="tab-content tabs">
 								<div role="tabpanel" class="tab-pane fade show active" id="home">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. </p>
+									<p>Selamat datang! Spam Detector merupakan sebuah program dikembangkan dengan perkakas PHP dengan menggunakan <i>framework</i> Laravel, Python, dan juga dengan menggunakan API Twitter. Program ini dapat melakukan pencarian terhadap <i>keyword</i> yang diduga merupakan spam terhadap <i>tweet</i> yang melakukan <i>mention</i> terhadap Anda. Berikut beberapa algoritma yang dapat Anda pilih untuk melakukan menyelesaikan masalah tersebut: </p>
 									<div class="row" id="report4">
 										<div class="col-md-4">
 											<div class="card text-center social-bottom sb-fb">
-												{{-- <i class="fa fa-code"></i> --}}
 												<p>Algoritma Boyer-Moore</p>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="card text-center social-bottom sb-tw">
-												{{-- <i class="fa fa-twitter"></i> --}}
 												<p>Algoritma KMP</p>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="card text-center social-bottom sb-gp">
-												{{-- <i class="fa fa-google-plus"></i> --}}
 												<p>Algoritma Regex</p>
 											</div>
 										</div> 
 									</div>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="profile">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. </p>
+									<p>Isilah formulir berikut ini jika ingin menggunakan akun Twitter pribadi Anda. Informasi ini dapat diperoleh melalui https://apps.twitter.com . Jika Anda ingin menggunakan <i>default</i>, silahkan kosongkan.</p>
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
@@ -74,23 +77,25 @@
 											</div> 
 											<div class="form-group">
 												<label for="access_secret">Access Secret</label>
-												<input type="access_secret" class="form-control" name="access_secret" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('access_secret')}}" required>
+												<input type="access_secret" class="form-control" name="access_secret" placeholder="Biarkan kosong untuk menggunakan default" value="{{old('access_secret')}}">
 											</div>  
 										</div>
 									</div>
 									<a class="nav-link btn btn-general btn-blue" href="#setting" role="tab" data-toggle="tab" onclick="changeSetting()">Selanjutnya</a>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="setting">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. </p>
+									<p>Isilah informasi berikut ini untuk memulai. <i>Keyword</i> dapat dipisahkan dengan koma, sedangkan jumlah <i>tweet</i> merupakan banyaknya X <i>tweet</i> terbaru yang ada di beranda <i>mention</i> Anda dengan 1 <= X <= 200. </p>
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-12">
 											<div class="form-group">
 												<label for="spam_keyword">Kata Kunci *</label>
-												<input type="text" class="form-control" name="spam_keyword" placeholder="Masukkan kata kunci spam" value="{{old('keyword')}}" required>
+												<input type="text" class="form-control" name="spam_keyword" placeholder="Masukkan kata kunci spam" value="{{old('spam_keyword')}}" required>
 											</div>
+										</div>
+										<div class="col-md-6">
 											<div class="form-group">
-												<label for="start_datetime">Tanggal Mulai Pencarian *</label>
-												<input class="form-control" type="datetime-local" value="2018-04-20T13:45:00" name="start_datetime" value="{{old('start_datetime')}}" required>
+												<label for="total">Jumlah Tweets*</label>
+												<input class="form-control" name="total" value="{{old('total')}}" required>
 											</div> 
 										</div>
 										<div class="col-md-6"> 
@@ -103,10 +108,6 @@
 													<option value="3">Regex</option>
 												</select>
 											</div>
-											<div class="form-group">
-												<label for="end_datetime">Tanggal Akhir Pencarian *</label>
-												<input class="form-control" type="datetime-local" value="2018-04-20T13:45:00" name="end_datetime" value="{{old('end_datetime')}}" required>
-											</div> 
 										</div>
 									</div>
 									{{(method_field('put'))}}

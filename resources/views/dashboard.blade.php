@@ -84,12 +84,12 @@
 									<a class="nav-link btn btn-general btn-blue" href="#setting" role="tab" data-toggle="tab" onclick="changeSetting()">Selanjutnya</a>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="setting">
-									<p>Isilah informasi berikut ini untuk memulai. <i>Keyword</i> dapat dipisahkan dengan koma, sedangkan jumlah <i>tweet</i> merupakan banyaknya X <i>tweet</i> terbaru yang ada di beranda <i>mention</i> Anda. </p>
+									<p>Isilah informasi berikut ini untuk memulai. <i>Keyword</i> dapat dipisahkan dengan koma, sedangkan jumlah <i>tweet</i> merupakan banyaknya X <i>tweet</i> terbaru yang ada di beranda <i>mention</i> Anda dengan 1 <= X <= 200. </p>
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="spam_keyword">Kata Kunci *</label>
-												<input type="text" class="form-control" name="spam_keyword" placeholder="Masukkan kata kunci spam" value="{{old('keyword')}}" required>
+												<input type="text" class="form-control" name="spam_keyword" placeholder="Masukkan kata kunci spam" value="{{old('spam_keyword')}}" required>
 											</div>
 										</div>
 										<div class="col-md-6">

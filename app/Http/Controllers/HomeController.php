@@ -22,6 +22,9 @@ class HomeController extends Controller
         if ($request->algorithm == NULL || $request->spam_keyword == NULL || $request->total == NULL){
             alert()->error('Oops!', 'Terdapat isian yang belum diisi');
             return Redirect::back()->withInput();
+        } else if ($request->total<1 || $request->total>200){
+            alert()->error('Oops!', 'X harus dalam rentang 1 - 200');
+            return Redirect::back()->withInput();
         }
 
         // Melakukan Overwrite jika field profil diisi
@@ -50,7 +53,8 @@ class HomeController extends Controller
 
         // Mendapatkan data dari API Twitter
         try{
-            $data_twitter = Twitter::getMentionsTimeline(['count' => $request->total, 'format' => 'json']);
+            $api_data = Twitter::getMentionsTimeline(['count' => 200]);
+            $data_twitter = array_slice($api_data, 0, $request->total);
         } catch (\Throwable $e){
             alert()->error('Oops!', $e->getMessage());
             return Redirect::back()->withInput();
@@ -58,7 +62,7 @@ class HomeController extends Controller
         
         // Menulis data dari Twitter ke dalam berkas JSON
         $path_twitter = storage_path() . "/json/data_twitter.json";
-        file_put_contents($path_twitter, $data_twitter);
+        file_put_contents($path_twitter, json_encode($data_twitter));
 
         // Memproses algoritma
         try {

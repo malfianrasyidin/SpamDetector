@@ -18,6 +18,7 @@ with open('../storage/json/data_twitter.json') as f:
     f.close()
 
 result = []
+print(data['algorithm'])
 
 for tweet in data_twitter:
     temp = {}
@@ -26,26 +27,36 @@ for tweet in data_twitter:
     temp['created_at'] = TimeToString(ParseTimeFromStatus(tweet['created_at']))
     if(data['algorithm'] == 1):
         keywords = data['spam_keyword'].split(', ')
+        flag = False
+        new_text = temp['message']
         for keyword in keywords:
-            flag = False
-            flag2, new_text = matchKMP(temp['message'], keyword)
+            flag2, new_text = matchBM(new_text, keyword)
             flag = flag or flag2
+        # flag, new_text = matchBM(temp['message'], data['spam_keyword'])
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
     elif(data['algorithm'] == 2):
         keywords = data['spam_keyword'].split(', ')
+        flag = False
+        new_text = temp['message']
         for keyword in keywords:
-            flag = False
-            flag2, new_text = matchRE(temp['message'], keyword)
+            flag2, new_text = matchKMP(new_text, keyword)
             flag = flag or flag2
+        temp['spam_flag'] = int(flag)
+        temp['message'] = new_text
+        # flag, new_text = matchKMP(temp['message'], data['spam_keyword'])
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
     else:
         keywords = data['spam_keyword'].split(', ')
+        flag = False
+        new_text = temp['message']
         for keyword in keywords:
-            flag = False
-            flag2, new_text = matchBM(temp['message'], keyword)
+            flag2, new_text = matchRE(new_text, keyword)
             flag = flag or flag2
+        temp['spam_flag'] = int(flag)
+        temp['message'] = new_text
+        # flag, new_text = matchRE(temp['message'], data['spam_keyword'])
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
     result.append(temp)

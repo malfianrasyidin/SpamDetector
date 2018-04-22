@@ -110,13 +110,3 @@ def matchRE(text,pattern):
 		return True
 	else:
 		return False
-
-#Contoh Penggunaan [DELETE THIS LATER]
-# tes = matchKMP("Bangsat kamu manusia yang tidak tahu diri", "Bangsatt")
-# print(tes)
-
-# tes2 = matchBM("Bangsat kamu manusia yang tidak tahu diri", "nas")
-# print(tes2)
-
-# tes3 = matchRE("Bangsat kamu manusia yang tidak tahu diri", "Bangsa")
-# print(tes3)

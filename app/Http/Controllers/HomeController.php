@@ -1,9 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+Use Alert;
+use Config;
 use Storage;
 use Twitter;
+use Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
@@ -14,15 +18,23 @@ class HomeController extends Controller
     }
 
     public function process(Request $request){
+        // Melakukan validasi form
+        if ($request->algorithm == NULL || $request->spam_keyword == NULL || $request->total == NULL){
+            alert()->error('Oops!', 'Terdapat isian yang belum diisi');
+            return Redirect::back()->withInput();
+        }
+
         // Melakukan Overwrite jika field profil diisi
         if ($request->consumer_key != NULL){
             if ($request->consumer_secret != NULL){
                 if ($request->access_token != NULL){
                     if ($request->access_secret != NULL){
-                        $consumer_key = $request->consumer_key;
-                        $consumer_secret = $request->consumer_secret;
-                        $access_token = $request->access_token;
-                        $access_secret = $request->access_secret;
+                        Config::set([
+                            'ttwitter.CONSUMER_KEY' => $request->consumer_key,
+                            'ttwitter.CONSUMER_SECRET' => $request->consumer_secret,
+                            'ttwitter.ACCESS_TOKEN' => $request->access_token,
+                            'ttwitter.ACCESS_TOKEN_SECRET' => $request->access_secret,
+                        ]);
                     }
                 }
             }
@@ -36,14 +48,21 @@ class HomeController extends Controller
         $path = storage_path() . "/json/data.json";
         file_put_contents($path, json_encode($data));
 
+        // Mendapatkan data dari API Twitter
+        try{
+            $data_twitter = Twitter::getMentionsTimeline(['count' => $request->total, 'format' => 'json']);
+        } catch (\Throwable $e){
+            alert()->error('Oops!', $e->getMessage());
+            return Redirect::back()->withInput();
+        }
+        
         // Menulis data dari Twitter ke dalam berkas JSON
-        $data_twitter = Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
         $path_twitter = storage_path() . "/json/data_twitter.json";
         file_put_contents($path_twitter, $data_twitter);
 
         // Memproses algoritma
         try {
-            $process = new Process("python3 hello.py");
+            $process = new Process("python3 Program.py");
             $process->mustRun();
         } catch (ProcessFailedException $exception) {
             echo $exception->getMessage();
@@ -52,9 +71,7 @@ class HomeController extends Controller
         // Membaca hasil
         $path_result = storage_path() . "/json/result.json";
         $result_data = json_decode(file_get_contents($path_result), true);
-        
-        // dd($result);
 
-        return view('result', ['data'=>$result_data]);
+        return view('result', ['result'=>$result_data]);
     }
 }

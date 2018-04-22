@@ -198,8 +198,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 }
 
 #card-prof .card.hovercard .cardheader {
-    /*background: url("../img/bg-i.jpg");*/
-    background: #ddd;
+    background: url("/img/profile.jpg");
+    /* background: #ddd; */
     background-size: cover;
     height: 135px;
 }
@@ -235,9 +235,20 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 #card-prof .card.hovercard .info .desc {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 20px;
     color: #737373;
+    text-overflow: ellipsis;
+}
+
+#card-prof .card.hovercard .info .desc2 {
+    margin-top: 10px;
+    margin-left: 10px;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 20px;
+    color: #007bff;
+    text-align: left;
     text-overflow: ellipsis;
 }
 

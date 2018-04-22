@@ -1,7 +1,5 @@
 <?php
 
-// You can find the keys here : https://apps.twitter.com/
-
 return [
 	'debug'               => function_exists('env') ? env('APP_DEBUG', false) : false,
 
@@ -14,8 +12,10 @@ return [
 	'REQUEST_TOKEN_URL'   => 'https://api.twitter.com/oauth/request_token',
 	'USE_SSL'             => true,
 
-	'CONSUMER_KEY'        => function_exists('env') ? env('TWITTER_CONSUMER_KEY', '') : '',
-	'CONSUMER_SECRET'     => function_exists('env') ? env('TWITTER_CONSUMER_SECRET', '') : '',
-	'ACCESS_TOKEN'        => function_exists('env') ? env('TWITTER_ACCESS_TOKEN', '') : '',
-	'ACCESS_TOKEN_SECRET' => function_exists('env') ? env('TWITTER_ACCESS_TOKEN_SECRET', '') : '',
+	'CONSUMER_KEY'        => '5p9RJNvDY6g7X7iqQvzuGVcHv',
+	'CONSUMER_SECRET'     => 'FWn4OZIbtJjs6qEErvX9R0fYX0FN84XP72eMjO2zdJUODBxtxK',
+	'ACCESS_TOKEN'        => '197745421-LgYMwS7PtHSSxLFATSlceRsdpMaCA9qf1dtz5t9v',
+	'ACCESS_TOKEN_SECRET' => 'huq48ZjymfCQZcudTyq0zGeHehloz8jgmHFWhg4lQcMiv',
 ];
+
+?>

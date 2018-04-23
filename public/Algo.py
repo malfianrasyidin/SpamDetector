@@ -19,9 +19,7 @@ def computeFail(pattern):
 		else:
 			fail[i] = 0
 			i=i+1
-
 	return fail
-
 
 #Fungsi Pencocokan Pattern pendekatan KMP dengan masukan pattern yang akan dicari (dalam bentuk string) dan suatu teks tempat pattern akan dicari, mengembalikan True atau False
 def matchKMP(text, pattern):
@@ -51,7 +49,6 @@ def matchKMP(text, pattern):
 			j = fail[j-1]
 		else:
 			i = i+1
-
 	return found,ntext
 
 #Fungsi yang mengembalikan tabel yang berisi kemunculan terakhir seluruh karakter ascii di dalam suatu pattern
@@ -60,7 +57,6 @@ def buildLast(pattern):
 	for i in range(len(pattern)):
 		asc = ord(pattern[i]) - 97
 		last[asc] = i
-
 	return last
 
 #Fungsi Pencocokan Pattern pendekatan Bayern-Moore dengan masukan pattern yang akan dicari (dalam bentuk string) dan suatu teks tempat pattern akan dicari, mengembalikan True atau False
@@ -76,7 +72,6 @@ def matchBM(text,pattern):
 	
 	j = i
 	found = False
-
 
 	if (pattern[j] == text[i]):
 		if (j == 0):
@@ -109,7 +104,6 @@ def matchBM(text,pattern):
 			last_occur = last[ord(text[i])-97]
 			i = i + len_pattern - min(j,1+last_occur)
 			j = len_pattern - 1
-
 	return found,ntext
 
 #Fungsi Pencocokan Pattern pendekaran regex dengan masukan pattern yang dicari (dalam bentuk ekspresi Regex) dan suatu teks tempat pattern akan dicari. Mengembalikan True atau False
@@ -125,19 +119,3 @@ def matchRE(text,pattern):
 		return True, ntext
 	else:
 		return False, ntext
-
-#Contoh Penggunaan [DELETE THIS LATER"""]
-text = "Bangsat gsat kamu manusia yang tidak tahu diri"
-tes,KMPtext = matchKMP(text, "Bangsa")
-print(tes)
-print(KMPtext)
-
-tes2, BMtext = matchBM("Bangsat kamu manusia yang tidak tahu diri", "manusi")
-print(tes2)
-print(BMtext)
-
-tes3, REtext = matchRE("Bangsat kamu manusia yang tidak tahu diri", "GSaaT")
-print(tes3)
-print(REtext)
-
-#print(computeFail("abababcba"))

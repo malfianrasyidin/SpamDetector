@@ -32,7 +32,6 @@ for tweet in data_twitter:
         for keyword in keywords:
             flag2, new_text = matchBM(new_text, keyword)
             flag = flag or flag2
-        # flag, new_text = matchBM(temp['message'], data['spam_keyword'])
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
     elif(data['algorithm'] == 2):
@@ -44,7 +43,6 @@ for tweet in data_twitter:
             flag = flag or flag2
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
-        # flag, new_text = matchKMP(temp['message'], data['spam_keyword'])
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
     else:
@@ -56,7 +54,6 @@ for tweet in data_twitter:
             flag = flag or flag2
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
-        # flag, new_text = matchRE(temp['message'], data['spam_keyword'])
         temp['spam_flag'] = int(flag)
         temp['message'] = new_text
     result.append(temp)
